@@ -1,5 +1,6 @@
 echo "Building !!"
 
+python -m pip install pigar
 
 TMP_FOLDER=".tmp_engine/"
 mkdir "$TMP_FOLDER"
