@@ -41,7 +41,7 @@ jobs:
       - name: Remove tmp folder
         run: |
           TMP_FOLDER=".tmp_engine/"
-          cp -R "$TMP_FOLDER/src/" src
+          cp -R "$TMP_FOLDER/src/" .
           rm -rf "$TMP_FOLDER"
           
       - name: Push prod tag
@@ -52,4 +52,4 @@ jobs:
           git add -A
           git commit -m "Pushing release v1.1.0"
           git tag -a v1.1.0 -m "v1.1.0"
-          git push -u origin release
+          git push origin v1.1.0
