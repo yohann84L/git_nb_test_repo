@@ -44,6 +44,13 @@ jobs:
           cp -R "$TMP_FOLDER/src/" .
           rm -rf "$TMP_FOLDER"
           
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+        
+      - name: Use tag
+        run: echo ${{steps.tag.outputs.tag}}
+          
       - name: Push prod tag
         run: |
           git config user.name "41898282+github-actions[bot]@users.noreply.github.com"
