@@ -52,4 +52,4 @@ jobs:
           git add -A
           git commit -m "Pushing release v1.1.0"
           git tag -a v1.1.0 -m "v1.1.0"
-          git push -u origin
+          git push -u origin release
