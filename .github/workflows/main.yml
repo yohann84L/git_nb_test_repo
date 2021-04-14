@@ -44,12 +44,14 @@ jobs:
           cp -R "$TMP_FOLDER/src/" .
           rm -rf "$TMP_FOLDER"
           
-      - name: Get tag
-        id: tag
-        uses: dawidd6/action-get-tag@v1.0.0
-        
-      - name: Use tag
-        run: echo ${{steps.tag.outputs.tag}}
+      - name: Bump version
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Test tag
+        run: echo ${{ steps.tag_version.outputs.previous_tag }}
           
       - name: Push prod tag
         run: |
