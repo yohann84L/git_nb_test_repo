@@ -38,10 +38,15 @@ jobs:
           python -m pip install pigar
           python -m pigar -p prod-requirements.txt -P src
           
+      - name: Remove tmp folder
+        run: |
+          cp -R "$TMP_FOLDER/tvmodels/" tvmodels
+          rm -rf "$TMP_FOLDER"
+          
       - name: Push prod tag
         run: |
           git config --global user.name '${GITHUB_ACTOR}'
           git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
-          git add -A && git commit -m '$*' --allow-empty
-          git push -u origin HEAD
+          git add -A
           git tag -a v1.1.0 -m "my version 1.1.0"
+          git push -u origin HEAD
