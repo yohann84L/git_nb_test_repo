@@ -40,7 +40,7 @@ jobs:
           
       - name: Remove tmp folder
         run: |
-          cp -R "$TMP_FOLDER/tvmodels/" tvmodels
+          cp -R "$TMP_FOLDER/src/" src
           rm -rf "$TMP_FOLDER"
           
       - name: Push prod tag
