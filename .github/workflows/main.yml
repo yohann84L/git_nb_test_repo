@@ -38,8 +38,10 @@ jobs:
           python -m pip install pigar
           python -m pigar -p prod-requirements.txt -P src
           
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "release.tar.gz,foo/*.txt"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "v1.0.0"
+      - name: Push prod tag
+        run: |
+          git config --global user.name '${GITHUB_ACTOR}'
+          git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+          git add -A && git commit -m '$*' --allow-empty
+          git push -u origin HEAD
+          git tag -a v1.1.0 -m "my version 1.1.0"
