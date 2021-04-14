@@ -4,11 +4,9 @@ name: TEST ACTION
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    tags:
+      - 'v*.*.*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -43,20 +41,24 @@ jobs:
           TMP_FOLDER=".tmp_engine/"
           cp -R "$TMP_FOLDER/src/" .
           rm -rf "$TMP_FOLDER"
-          
-      - name: Get Latest Tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1.0.1
       
-      - name: Print tag
-        run: echo ${{ steps.previoustag }}
-
-          
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Check output
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.vars.outputs.tag }}
+      
+      
       - name: Push prod tag
         run: |
           git config user.name "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.email "github-actions[bot]"
           git checkout -b release
           git add -A
-          git commit -m "Pushing release ${{ env.GIT_TAG }}-prod"
-          git tag -a ${{ env.RELEASE_VERSION }} -m "${{ env.GIT_TAG }}-prod"
-          git push origin ${{ env.GIT_TAG }}
+          git commit -m "Pushing release ${{ steps.vars.outputs.tag }}-prod"
+          git tag -a ${{ steps.vars.outputs.tag }} -m "${{ steps.vars.outputs.tag }}-prod"
+          git push origin ${{ steps.vars.outputs.tag }}
