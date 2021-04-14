@@ -60,5 +60,5 @@ jobs:
           git checkout -b release
           git add -A
           git commit -m "Pushing release ${{ steps.vars.outputs.tag }}-prod"
-          git tag -a ${{ steps.vars.outputs.tag }} -m "${{ steps.vars.outputs.tag }}-prod"
-          git push origin ${{ steps.vars.outputs.tag }}
+          git tag -a ${{ steps.vars.outputs.tag }}-prod -m "${{ steps.vars.outputs.tag }}-prod"
+          git push origin ${{ steps.vars.outputs.tag }}-prod
