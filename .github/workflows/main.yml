@@ -46,6 +46,8 @@ jobs:
           
       - name: Push prod tag
         run: |
+          git config user.name ${{ secrets.GH_USER }}
+          git config user.email "${{ secrets.GH_MAIL }}"
           git checkout -b release
           git add -A
           git commit -m "Pushing release v1.1.1"
