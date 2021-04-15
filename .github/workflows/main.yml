@@ -26,15 +26,15 @@ jobs:
       # Runs a single command using the runners shell
       - name: Remove files
         run: |
-          TMP_FOLDER=".tmp_engine/"
-          mkdir "$TMP_FOLDER"
-          cp -R src "$TMP_FOLDER"
           rm src/test.py
+
+      - name: Install pigar library
+        run: |
+          pip install pigar
           
       - name: Create requirements with pigar library
         run: |
-          python -m pip install pigar
-          python -m yes | pigar -p prod-requirements.txt -P src
+          yes | pigar -p prod-requirements.txt -P src
       
       - name: Get current tag
         id: vars
