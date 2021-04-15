@@ -27,6 +27,7 @@ jobs:
       - name: Remove files
         run: |
           rm src/test.py
+          rm -rf .github
 
       - name: Install pigar library
         run: |
