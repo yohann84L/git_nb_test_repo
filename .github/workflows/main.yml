@@ -34,7 +34,7 @@ jobs:
       - name: Create requirements with pigar library
         run: |
           python -m pip install pigar
-          python -m pigar -p prod-requirements.txt -P src
+          python -m yes | pigar -p prod-requirements.txt -P src
           
       - name: Remove tmp files
         run: |
@@ -55,8 +55,8 @@ jobs:
       
       - name: Push prod-tag
         run: |
-          git config user.name "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.email "github-actions[bot]"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git push origin --delete release
           git checkout -b release
           git add . 
