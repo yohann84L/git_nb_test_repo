@@ -31,7 +31,11 @@ jobs:
 
       - name: Install pigar library
         run: |
-          pip install pigar
+          pip install pigar pytest pylint
+        
+      - name: Run all test
+        run: |
+          pytest
           
       - name: Create requirements with pigar library
         run: |
@@ -52,13 +56,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git push origin --delete release
           git checkout -b release
           git add . 
           git commit -m "Pushing release ${{ steps.vars.outputs.tag }}-prod"
           git push -u origin release
           git tag -a ${{ steps.vars.outputs.tag }}-prod -m "${{ steps.vars.outputs.tag }}-prod"
           git push origin ${{ steps.vars.outputs.tag }}-prod
+          git push origin --delete release
 
       - uses: ncipollo/release-action@v1
         with:
